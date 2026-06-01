@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sai Puppala</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --nav-height: 48px;
+  --sidebar-width: 220px;
+  --font: 'Roboto', sans-serif;
+  --text: #333;
+  --muted: #555;
+  --link: #52adc8;
+  --link-hover: #1a7da0;
+  --border: #e0e0e0;
+  --bg: #fff;
+  --nav-bg: #000;
+  --sidebar-bg: #fff;
+  --masthead-shadow: 0 2px 4px rgba(0,0,0,0.12);
+}
+
+html, body { height: 100%; }
+body {
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* ── TOP NAV ── */
+#masthead {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: var(--nav-bg);
+  box-shadow: var(--masthead-shadow);
+}
+.masthead-inner {
+  display: flex;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  height: var(--nav-height);
+  gap: 0;
+}
+.site-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  padding: 0 1rem 0 0;
+  flex-shrink: 0;
+}
+.site-title:hover { color: #ccc; }
+nav.greedy-nav { display: flex; align-items: center; gap: 0; flex: 1; }
+nav.greedy-nav a {
+  display: block;
+  padding: 0 1rem;
+  height: var(--nav-height);
+  line-height: var(--nav-height);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 400;
+  white-space: nowrap;
+  transition: color 0.15s;
+  letter-spacing: 0.02em;
+}
+nav.greedy-nav a:hover, nav.greedy-nav a.active { color: #9ad4e8; }
+
+/* ── PAGE LAYOUT ── */
+#page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+/* ── SIDEBAR ── */
+#sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  position: sticky;
+  top: calc(var(--nav-height) + 1.5rem);
+}
+.author-avatar {
+  display: block;
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+  border-radius: 50%;
+  margin: 0 auto 0.75rem;
+  border: 2px solid var(--border);
+  /* placeholder circle when no image */
+  background: #d0d8e8;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  color: #7090b0;
+  font-weight: 300;
+  overflow: hidden;
+}
+.author-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.author-name {
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.2rem;
+  color: var(--text);
+}
+.author-bio {
+  font-size: 0.8rem;
+  text-align: center;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+  line-height: 1.45;
+}
+.author-links {
+  list-style: none;
+  font-size: 0.78rem;
+  margin-top: 0.5rem;
+}
+.author-links li {
+  padding: 0.18rem 0;
+  color: var(--muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+.author-links li .icon {
+  flex-shrink: 0;
+  width: 14px;
+  margin-top: 0.12rem;
+  text-align: center;
+  color: #888;
+  font-size: 0.75rem;
+}
+.author-links a {
+  color: var(--link);
+  text-decoration: none;
+}
+.author-links a:hover { text-decoration: underline; color: var(--link-hover); }
+
+/* ── MAIN CONTENT ── */
+#main {
+  flex: 1;
+  min-width: 0;
+  padding-top: 0.25rem;
+}
+
+/* pages */
+.page-content { display: none; }
+.page-content.active { display: block; }
+
+#main h1 {
+  font-size: 1.65rem;
+  font-weight: 700;
+  margin: 0 0 0.9rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+#main h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 2rem 0 0.6rem;
+  color: var(--text);
+}
+#main p {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  margin-bottom: 0.8rem;
+  color: var(--text);
+}
+#main a { color: var(--link); text-decoration: none; }
+#main a:hover { text-decoration: underline; color: var(--link-hover); }
+
+/* research bullets */
+#main ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+#main ul li {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+}
+
+/* Publications */
+.pub-entry {
+  margin-bottom: 1rem;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.pub-entry:last-child { border-bottom: none; }
+.pub-entry em { font-style: italic; }
+.pub-entry .pub-links { margin-top: 0.1rem; }
+.pub-entry .pub-links a {
+  display: inline-block;
+  margin-right: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--link);
+}
+
+/* Teaching */
+.course-block { margin-bottom: 1.5rem; }
+.course-block h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.1rem;
+}
+.course-block .course-role {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+  font-style: italic;
+}
+.course-block p {
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: var(--text);
+  margin: 0;
+}
+
+/* Recognitions */
+.recog-list { list-style: disc; padding-left: 1.4rem; }
+.recog-list li {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin-bottom: 0.4rem;
+}
+
+/* Experience */
+.exp-block { margin-bottom: 1.3rem; }
+.exp-block h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.05rem; }
+.exp-block .exp-meta { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-bottom: 0.2rem; }
+.exp-block p { font-size: 0.86rem; color: var(--text); margin: 0; }
+
+/* news list */
+.news-list { list-style: none; padding: 0; }
+.news-list li {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #f4f4f4;
+  display: flex;
+  gap: 0.75rem;
+}
+.news-list li:last-child { border-bottom: none; }
+.news-list .news-year {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--muted);
+  font-size: 0.8rem;
+  min-width: 38px;
+  padding-top: 0.1rem;
+}
+
+/* CV / section blocks */
+.cv-section { margin-bottom: 2.2rem; }
+.cv-section h2 { margin-top: 0; }
+
+/* footer */
+#page-footer {
+  font-size: 0.72rem;
+  color: #888;
+  text-align: center;
+  padding: 1.5rem 0 2rem;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
+#page-footer a { color: #888; text-decoration: none; }
+#page-footer a:hover { text-decoration: underline; }
+
+/* mobile */
+@media (max-width: 700px) {
+  #page { flex-direction: column; gap: 1.5rem; }
+  #sidebar { position: static; width: 100%; }
+  .author-avatar { max-width: 120px; }
+  .masthead-inner { padding: 0 0.5rem; }
+  nav.greedy-nav a { padding: 0 0.5rem; font-size: 0.75rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div id="masthead">
+  <div class="masthead-inner">
+    <a class="site-title" href="#" onclick="showPage('about',this); return false;">Sai Puppala</a>
+    <nav class="greedy-nav">
+      <a href="#" class="active" onclick="showPage('about',this); return false;">About</a>
+      <a href="#" onclick="showPage('publications',this); return false;">Publications</a>
+      <a href="#" onclick="showPage('cv',this); return false;">CV</a>
+      <a href="#" onclick="showPage('teaching',this); return false;">Teaching</a>
+      <a href="#" onclick="showPage('recognitions',this); return false;">Recognitions</a>
+      <a href="https://scholar.google.com/citations?user=VjEGZJoAAAAJ" target="_blank">Google Scholar</a>
+    </nav>
+  </div>
+</div>
+
+<!-- PAGE LAYOUT -->
+<div id="page">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="author-avatar"><img src="data:image/jpeg;base64,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" alt="Sai Puppala"></div>
+    <div class="author-name">Sai Puppala</div>
+    <div class="author-bio">Assistant Professor</div>
+    <div class="author-bio">New Mexico Tech</div>
+    <ul class="author-links">
+      <li><span class="icon">📍</span> Soccoro, NM</li>
+      <li><span class="icon">✉</span> <a href="mailto:saimaniteja.puppala@siu.edu">Email</a></li>
+      <li><span class="icon">in</span> <a href="https://www.linkedin.com/in/sai-p-7bab141b2/" target="_blank">LinkedIn</a></li>
+      <li><span class="icon">gh</span> <a href="https://github.com" target="_blank">Github</a></li>
+      <li><span class="icon">gs</span> <a href="https://scholar.google.com/citations?user=VjEGZJoAAAAJ&hl=en" target="_blank">Google Scholar</a></li>
+      <li><span class="icon">id</span> <a href="https://orcid.org/0009-0008-0334-5756" target="_blank">ORCID</a></li>
+      <li><span class="icon">rg</span> <a href="https://www.researchgate.net/profile/Sai-Puppala-5" target="_blank">ResearchGate</a></li>
+    </ul>
+  </aside>
+
+  <!-- MAIN -->
+  <div id="main">
+
+    <!-- ABOUT PAGE -->
+    <div id="page-about" class="page-content active">
+      <h1>About Me</h1>
+      <p>
+        Sai Puppala is a Ph.D. student in the Department of Computer Science and Engineering at
+        <strong>Southern Illinois University Carbondale</strong>, working at the intersection of
+        Artificial Intelligence (AI), Machine Learning (ML), and cybersecurity. His research focuses on
+        developing robust, adaptive, and secure intelligent systems addressing contemporary challenges in
+        cybersecurity and data integrity, particularly in dynamic and resource-constrained environments.
+        He is a member of the <a href="https://www.cs.utep.edu/stalukder/supremelab/" target="_blank">Security
+        and Privacy Enhanced Machine Learning (SUPREME) Lab</a>, advised by Dr. Sajedul Talukder and Dr. Koushik Sinha.
+      </p>
+      <p>
+        As a Senior Research Software Engineer at <strong>John Deere</strong>, Sai applies his expertise in
+        Big Data, Machine Learning, and Cloud Services to solve complex problems across Manufacturing,
+        Transportation, and Healthcare domains. He has authored over <strong>40 peer-reviewed publications</strong>
+        in prestigious journals and top-tier conferences including IEEE COMPSAC, IEEE/ACM ASONAM, ICWSM, and
+        the American Nuclear Society.
+      </p>
+
+      <h2>Research Interests</h2>
+      <ul>
+        <li><strong>Federated Learning</strong> — secure, communication-efficient, and adaptive federated learning for resource-constrained and 6G edge environments</li>
+        <li><strong>Agentic AI</strong> — autonomous AI systems capable of planning, tool use, and multi-step reasoning to accomplish complex real-world tasks</li>
+        <li><strong>Healthcare AI</strong> — predictive analytics, wearable technology, and federated learning for patient privacy</li>
+        <li><strong>Cybersecurity</strong> — quantum-inspired models, anomaly detection, and proactive threat intelligence for critical infrastructure</li>
+        <li><strong>Generative AI &amp; LLMs</strong> — GPT-based systems, RAG pipelines, and multimodal summarization</li>
+      </ul>
+
+      <h2>Recent News</h2>
+      <ul class="news-list">
+        <li><span class="news-year">2025</span><span><strong>Six</strong> papers accepted in <strong>American Nuclear Society</strong> top journal</span></li>
+        <li><span class="news-year">2025</span><span><strong>Five</strong> papers accepted at <strong>ANS I&amp;P 2025</strong></span></li>
+        <li><span class="news-year">2025</span><span>Won <strong>Best Reviewer Award</strong> — top 4% among 497 reviewers at <strong>ICWSM 2025</strong></span></li>
+        <li><span class="news-year">2025</span><span>Served as <strong>Meta Reviewer</strong> for <strong>PacificVis 2025</strong></span></li>
+        <li><span class="news-year">2025</span><span>Awarded Grant Writing Certificate from <strong>University of Georgia</strong></span></li>
+        <li><span class="news-year">2024</span><span>Paper accepted in <strong>MDPI Agriculture</strong> (Impact Factor: 3.8)</span></li>
+        <li><span class="news-year">2024</span><span><strong>Four</strong> papers accepted at <strong>COMPSAC 2024</strong> (acceptance rate: 22%)</span></li>
+        <li><span class="news-year">2024</span><span>Paper accepted at <strong>ICMLA 2024</strong> (acceptance rate: 18%)</span></li>
+        <li><span class="news-year">2024</span><span><strong>Four</strong> papers accepted at <strong>ASONAM 2024</strong> (acceptance rate: 25%)</span></li>
+        <li><span class="news-year">2024</span><span>Paper accepted at <strong>ICWSM 2024</strong> (acceptance rate: 12%)</span></li>
+        <li><span class="news-year">2024</span><span><strong>Seven</strong> book chapters published in <em>Data-driven Approaches to Medical Imaging</em>, Springer</span></li>
+        <li><span class="news-year">2024</span><span>Honored with <strong>John Deere Presidents Award</strong>, <strong>CIO Global IT Impact Award</strong>, and <strong>VP After Market Award</strong></span></li>
+        <li><span class="news-year">2024</span><span>Awarded <strong>AWS Associate ML</strong> and <strong>AWS Solutions Architect</strong> certifications</span></li>
+        <li><span class="news-year">2023</span><span><strong>Three</strong> papers accepted at <strong>ACM/IEEE ASONAM 2023</strong></span></li>
+      </ul>
+    </div>
+
+    <!-- PUBLICATIONS PAGE -->
+    <div id="page-publications" class="page-content">
+      <h1>Publications</h1>
+      <p>You can also find my articles on <a href="https://scholar.google.com/citations?user=VjEGZJoAAAAJ&hl=en" target="_blank">my Google Scholar profile</a>.</p>
+
+      <h2>Work in Progress</h2>
+
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong>. (In progress). A Bayesian Gaussian Approach to Personalized Federated Learning through Dynamic-UMAP Enhanced Variational Interference.
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong>. (In progress). Survey on Advances in Federated Learning for Resource-Constrained IoT Devices with LEO Satellite Integration.
+      </div>
+
+      <h2>Accepted — Pending Publication</h2>
+
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2025). Securing SDN-Based Advanced Reactors Against DDoS Attacks Using Quantum-Inspired Ensemble Models. <em>Nuclear Plant Instrumentation and Control &amp; Human-Machine Interface, ANS.</em>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2025). Proactive Cybersecurity Framework for Nuclear Power Plants Using Quantum Large Language Models. <em>Nuclear Plant Instrumentation and Control &amp; Human-Machine Interface, ANS.</em>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2025). A Privacy-Aware Cyber Attack Detection Framework for Advanced Reactors Using Data Fusion and Quantum Deep Learning. <em>Nuclear Plant Instrumentation and Control &amp; Human-Machine Interface, ANS.</em>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2025). Secure Anomaly Detection in Advanced Reactor through Quantum Federated Learning with Advanced Cryptography. <em>Nuclear Plant Instrumentation and Control &amp; Human-Machine Interface, ANS.</em>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2025). LLM-Powered Chatbot for Safety Compliance Assistance in Nuclear Power Plants. <em>Nuclear Plant Instrumentation and Control &amp; Human-Machine Interface, ANS.</em>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2025). Optimus-Q: Utilizing Blockchain Federated Learning in Adaptive Human Robots for Intelligent NPP Operations through Quantum Cryptography. <em>ANS.</em>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2025). Blockchain for Identity Governance: Policy Enforcement and Compliance in IAM Systems. <em>Springer Nature.</em>
+      </div>
+
+      <h2>Published Works</h2>
+
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). A Visual Approach to Tracking Emotional Sentiment Dynamics in Social Network Commentaries. <em>18th International AAAI Conference on Web and Social Media (ICWSM 2024).</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=A+Visual+Approach+to+Tracking+Emotional+Sentiment+Dynamics" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). Generative Adversarial Networks for Data Augmentation. In <em>Data Driven Approaches on Medical Imaging</em>, Springer.
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=Generative+adversarial+networks+for+data+augmentation" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). Adaptive Machine Learning-Based Threat Intelligence in Nuclear Facilities (AML-TIN): A Framework for Enhanced Cybersecurity in Nuclear Computing Environments. <em>Transactions of the American Nuclear Society.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=AML-TIN+Nuclear+Facilities+Cybersecurity" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). SocialGuard: Bangla Text-Based Gender Identification for Enhancing Integrity in Social Networks. <em>48th IEEE International Conference on Computers, Software, and Applications (COMPSAC 2024).</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=SocialGuard+Bangla+Text-Based+Gender+Identification" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). SCALE: Self-regulated Clustered federAted LEarning in a Homogeneous Environment. <em>IEEE COMPSAC 2024.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=SCALE+Self-regulated+Clustered+federAted+LEarning" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). Towards Communication-Efficient Federated Learning Through Particle Swarm Optimization and Knowledge Distillation. <em>IEEE COMPSAC 2024.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=Communication-Efficient+Federated+Learning+Particle+Swarm+Knowledge+Distillation" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). SCAN: A HealthCare Personalized ChatBot with Federated Learning Based GPT. <em>IEEE COMPSAC 2024.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=SCAN+HealthCare+ChatBot+Federated+Learning+GPT" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). Advancements in Multimodal Social Media Post Summarization: Integrating GPT-4 for Enhanced Understanding. <em>IEEE COMPSAC 2024.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=Multimodal+Social+Media+Post+Summarization+GPT-4" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). SocFedGPT: Federated GPT-based Adaptive Content Filtering System Leveraging User Interactions in Social Networks. <em>IEEE/ACM ASONAM 2024.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=SocFedGPT+Federated+GPT+Content+Filtering+Social+Networks" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). FLASH: Federated Learning-Based LLMs for Advanced Query Processing in Social Networks through RAG. <em>IEEE/ACM ASONAM 2024.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=FLASH+Federated+Learning+LLMs+RAG+Social+Networks" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). 4WHContext: A Context Based Hate Speech Detection Framework From Social Media Posts. <em>IEEE/ACM ASONAM 2024.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=4WHContext+Hate+Speech+Detection+Framework" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). SocialRec: User Activity Based Post Weighted Dynamic Personalized Post Recommendation System in Social Media. <em>IEEE/ACM ASONAM 2024.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=SocialRec+Post+Weighted+Dynamic+Personalized+Recommendation" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). Bangla Emotion Detection Dataset With An Extended Taxonomy And Its Evaluation. <em>IEEE/ACM ASONAM 2024.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=Bangla+Emotion+Detection+Dataset+Extended+Taxonomy" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). EVOLVE: Predicting User Evolution and Network Dynamics in Social Media Using Fine-Tuned GPT-like Model. <em>IEEE/ACM ASONAM 2024.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=EVOLVE+Predicting+User+Evolution+Network+Dynamics+Social+Media" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). Combating Echo Chambers In Online Social Network By Increasing Content Diversity In Recommendation. <em>IEEE/ACM ASONAM 2024.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=Combating+Echo+Chambers+Online+Social+Network+Content+Diversity" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). CAMERA: Context Based Emotion Detection Framework And Its Evaluation. <em>IEEE/ACM ASONAM 2024.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=CAMERA+Context+Based+Emotion+Detection+Framework" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2024). Towards Federated Learning Based Contraband Detection Within Airport Baggage X-Rays. <em>International Conference on Machine Learning &amp; Applied Network Technologies (ICMLANT 2024).</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=Federated+Learning+Contraband+Detection+Airport+Baggage" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2023). Blockchain-Integrated Secure Framework for Enhanced E-Government Services. In <em>Building Cybersecurity Applications with Blockchain and Smart Contracts.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=Blockchain-Integrated+Secure+Framework+E-Government" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2023). Monitoring Dynamics of Emotional Sentiment in Social Network Commentaries. <em>IEEE/ACM ASONAM 2023.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=Monitoring+Dynamics+Emotional+Sentiment+Social+Network" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2023). Combating Identity Attacks in Online Social Networks: A Multi-Layered Framework Using Zero-Knowledge Proof and Permissioned Blockchain. <em>IEEE/ACM ASONAM 2023.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=Combating+Identity+Attacks+Zero-Knowledge+Proof+Blockchain" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2022). Machine Learning and Sentiment Analysis for Predicting Environmental Lead Toxicity in Children at the ZIP Code Level. <em>IEEE International Conference on AI in Cybersecurity (ICAIC 2022).</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=Machine+Learning+Sentiment+Lead+Toxicity+Children+ZIP+Code" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2022). Collaborative Differentially Private Federated Learning Framework for the Prediction of Diabetic Retinopathy. <em>IEEE ICAIC 2022.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=Collaborative+Differentially+Private+Federated+Learning+Diabetic+Retinopathy" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2022). Prediction of Childhood and Pregnancy Lead Poisoning Using Deep Learning. <em>Journal of Computing Sciences in Colleges.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=Prediction+Childhood+Pregnancy+Lead+Poisoning+Deep+Learning" target="_blank">[link]</a></div>
+      </div>
+      <div class="pub-entry">
+        <strong>Sai Puppala</strong> et al. (2022). A Novel Hierarchical Federated Learning with Self-Regulated Decentralized Clustering. <em>Journal of Computing Sciences in Colleges.</em>
+        <div class="pub-links"><a href="https://scholar.google.com/scholar?q=Novel+Hierarchical+Federated+Learning+Self-Regulated+Decentralized+Clustering" target="_blank">[link]</a></div>
+      </div>
+    </div>
+
+    <!-- CV PAGE -->
+    <div id="page-cv" class="page-content">
+      <h1>CV</h1>
+
+      <div class="cv-section">
+        <h2>Education</h2>
+        <div class="exp-block">
+          <h3>Ph.D. in Computer Science and Engineering</h3>
+          <div class="exp-meta">Southern Illinois University, Carbondale · 2022 – Present</div>
+          <p>Dissertation: Secure, Adaptive, and Efficient Federated Learning for Resource-Constrained 6G Edge Intelligence<br>
+          Advisors: Dr. Sajedul Talukder, Dr. Koushik Sinha</p>
+        </div>
+        <div class="exp-block">
+          <h3>M.Sc. in Computer Science and Mathematics</h3>
+          <div class="exp-meta">University of Illinois · 2018 – 2020</div>
+          <p>Thesis: High-Risk Zip Code Identification for Lead Poisoning Through Predictive Analysis of Environmental Factors<br>
+          Advisor: Dr. Hei-Chi Chan</p>
+        </div>
+        <div class="exp-block">
+          <h3>B.Sc. in Computer Science and Engineering</h3>
+          <div class="exp-meta">Jawaharlal Nehru University · 2010 – 2014</div>
+          <p>Thesis: Advancements in Ad-hoc Sensor Networks and Their Role in Enhancing Big Data-Driven Malware Detection Techniques<br>
+          Advisor: Dr. Shaik Abdul Nabi</p>
+        </div>
+      </div>
+
+      <div class="cv-section">
+        <h2>Work Experience</h2>
+        <div class="exp-block">
+          <h3>Senior Research Software Engineer</h3>
+          <div class="exp-meta">John Deere, U.S. · 2021 – Present</div>
+          <p>Generative AI · Machine Learning · Security and Privacy · Big Data · Manufacturing Services</p>
+        </div>
+        <div class="exp-block">
+          <h3>Research Software Engineer</h3>
+          <div class="exp-meta">Vertava Health, U.S. · 2020 – 2021</div>
+          <p>Data Engineering · Data Processing · Visualizations · Automations · Healthcare Services</p>
+        </div>
+        <div class="exp-block">
+          <h3>Graduate Research Intern</h3>
+          <div class="exp-meta">Illinois Department of Public Health, U.S. · 2018 – 2020</div>
+          <p>Data Engineering · Machine Learning · Data Processing · Government Services</p>
+        </div>
+        <div class="exp-block">
+          <h3>Senior Software Engineer</h3>
+          <div class="exp-meta">Google Inc · 2015 – 2018</div>
+          <p>Data Structures · Big Data Tools · Programming · Automations · Software Services</p>
+        </div>
+        <div class="exp-block">
+          <h3>Software Engineer</h3>
+          <div class="exp-meta">Meru Cabs (Mahindra Group), India · 2014 – 2015</div>
+          <p>Automations · Programming · Big Data · Transportation Services</p>
+        </div>
+      </div>
+
+      <div class="cv-section">
+        <h2>Certifications</h2>
+        <ul>
+          <li>AWS Associate Machine Learning — Amazon Web Services</li>
+          <li>AWS Associate Solutions Architecture — Amazon Web Services</li>
+          <li>Grant Writing Certificate — University of Georgia (Center for Continuing Education)</li>
+          <li>Databricks Certified</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TEACHING PAGE -->
+    <div id="page-teaching" class="page-content">
+      <h1>Teaching</h1>
+
+      <h2>Corporate Training</h2>
+      <div class="course-block">
+        <h3>CS508 — Generative Artificial Intelligence</h3>
+        <div class="course-role">Corporate Trainer · John Deere University, Moline, IL · 2024 – Present</div>
+        <p>Introduction to Generative AI, Key Concepts and Terminology, Types of Generative Models, Applications in Business, Ethical Considerations, Tools and Platforms, Implementing GenAI in the Workplace, Future Trends, Hands-On Session.</p>
+      </div>
+
+      <h2>Teaching Assistant — Southern Illinois University</h2>
+      <div class="course-block">
+        <h3>CS 330/CS 491 — Intro to the Design and Analysis of Algorithms</h3>
+        <div class="course-role">Teaching Assistant · Spring 2024</div>
+        <p>Design, implementation, complexity and limitations of algorithms. Methods for algorithm analysis and correctness proofs.</p>
+      </div>
+      <div class="course-block">
+        <h3>CS 409/CS 591 — Ethical Hacking</h3>
+        <div class="course-role">Teaching Assistant · Fall 2023</div>
+        <p>Introduction to Ethical Hacking, Legal and Ethical Considerations, Exploitation Techniques, Web Application Security, Network Security and Penetration Testing, Wireless Security, Tools including Metasploit and Wireshark, Case Studies.</p>
+      </div>
+      <div class="course-block">
+        <h3>CS 330/CS 491 — Intro to the Design and Analysis of Algorithms</h3>
+        <div class="course-role">Teaching Assistant · Spring 2023</div>
+        <p>Design, implementation, complexity and limitations of algorithms. Methods for algorithm analysis and correctness proofs.</p>
+      </div>
+      <div class="course-block">
+        <h3>CS 409/CS 591 — Ethical Hacking</h3>
+        <div class="course-role">Teaching Assistant · Fall 2022</div>
+        <p>Introduction to Ethical Hacking, Legal and Ethical Considerations, Exploitation Techniques, Web and Network Security, Wireless Security, Industry tools.</p>
+      </div>
+
+      <h2>Course Trainer — Yaaltech Institute, Hyderabad, India (2015–2018)</h2>
+      <div class="course-block">
+        <h3>CS400 — Big Data Cloud Services</h3>
+        <div class="course-role">Course Trainer</div>
+        <p>Big Data Concepts, Cloud Computing Integration, Data Ingestion and Processing, Cloud-Based Storage, Analytics and Visualization, Real-Time Processing, Machine Learning in the Cloud, Security and Compliance, Cost Management, Case Studies.</p>
+      </div>
+      <div class="course-block">
+        <h3>CS200 — Introduction to Programming</h3>
+        <div class="course-role">Course Trainer</div>
+        <p>Programming Concepts, Variables and Data Types, Control Structures, Functions, Data Structures, Basic Algorithms, OOP Principles, IDEs and Version Control, Coding Best Practices.</p>
+      </div>
+
+      <h2>Speaker Invitations</h2>
+      <ul>
+        <li>TechWorld 2025 — Big Data, Computer Science, and Information Technologies</li>
+        <li>GSPOWER 2026 — Global Summit on Power and Energy Engineering</li>
+        <li>POWERMEET 2026 — 2nd International Meet &amp; Expo on Power and Energy Engineering</li>
+        <li>AGSCIVIL 2025 — Annual Global Summit on Civil, Structural, and Environmental Engineering</li>
+        <li>TechFusion 2025 — AI, Cybersecurity, and Emerging Trends in Computer Science</li>
+        <li>ICAIC 2025 — International Conference on Artificial Intelligence and Cybersecurity</li>
+        <li>WSCSE-2026 — 2nd World Summit on Crop Science and Engineering</li>
+        <li>ICMI 2025 — 27th ACM International Conference on Multimodal Interaction</li>
+        <li>WEBNANO-2025 — 6th International Experts Meet on Nanoscience and Nanotechnology</li>
+        <li>European Healthcare &amp; Hospital Management Conference (2025)</li>
+        <li>Nursing Asia-Pacific 2025 — 6th Asia-Pacific Advanced Nursing Practice Conclave</li>
+      </ul>
+    </div>
+
+    <!-- RECOGNITIONS PAGE -->
+    <div id="page-recognitions" class="page-content">
+      <h1>Recognitions</h1>
+
+      <h2>Awards &amp; Honors</h2>
+      <ul class="recog-list">
+        <li>Won the <strong>Best Reviewer Award</strong>: Recognized as a top <strong>4%</strong> reviewer among 497 total reviewers at <strong>ICWSM 2025</strong></li>
+        <li>Honored with the <strong>2024 After Market Customer Support Vice President Award</strong> from John Deere for our Product Service Center</li>
+        <li>Honored with the <strong>2024 CIO Global IT Impact Award</strong> from John Deere for our Product Service Guru</li>
+        <li>Honored with the <strong>2024 Presidents Award</strong> from John Deere for our Product Service Center</li>
+        <li>Received the <strong>2024 GPSC Professional Development Award</strong> from Southern Illinois University at Carbondale</li>
+        <li>Nominated for the <strong>2020 Brian T. Milbrandt Memorial Award</strong> for Academic and Professional Excellence</li>
+        <li>Featured in <strong>Illinois News</strong> for achieving <strong>16th place nationwide</strong> and <strong>4th place statewide</strong> in the 2022 Cyber Force Competition</li>
+        <li>Received <strong>Outstanding Reviewer</strong> recognition at <strong>Automotive UI 2024</strong> and <strong>Mensch und Computer 2024</strong></li>
+        <li>Awarded a prestigious <strong>scholarship</strong> to pursue a Master's degree at the University of Illinois</li>
+        <li>Selected to present at the <strong>Business Insights and Analytics Conference</strong> at John Deere for Advance RAG Application</li>
+        <li>Selected as presenter at John Deere's <strong>Global IT Tech Day Conference 2024</strong></li>
+        <li>Received global IT recognitions from Engineering Manager, Product Manager, and Senior Software Engineers at John Deere</li>
+      </ul>
+
+      <h2>Certifications</h2>
+      <ul class="recog-list">
+        <li>AWS Associate Machine Learning — Amazon Web Services</li>
+        <li>AWS Associate Solutions Architecture — Amazon Web Services</li>
+        <li>Grant Writing Certificate — Center for Continuing Education, University of Georgia</li>
+        <li>Databricks Certified</li>
+      </ul>
+
+      <h2>Reviewing &amp; Service</h2>
+      <ul class="recog-list">
+        <li>Meta Reviewer — PacificVis 2025</li>
+        <li>Outstanding Reviewer — Automotive UI 2024</li>
+        <li>Outstanding Reviewer — Mensch und Computer 2024</li>
+        <li>Best Reviewer (Top 4%) — ICWSM 2025</li>
+      </ul>
+    </div>
+
+    <div id="page-footer">
+      © 2025 Sai Puppala. Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a> &amp;
+      <a href="https://github.com/academicpages/academicpages.github.io" target="_blank">AcademicPages</a>,
+      a fork of <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" target="_blank">Minimal Mistakes</a>.
+    </div>
+
+  </div><!-- /#main -->
+
+</div><!-- /#page -->
+
+<script>
+  function showPage(name, el) {
+    document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('nav.greedy-nav a').forEach(a => a.classList.remove('active'));
+    const pg = document.getElementById('page-' + name);
+    if (pg) pg.classList.add('active');
+    if (el) el.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+</script>
+</body>
+</html>
